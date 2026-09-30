@@ -1,0 +1,11 @@
+﻿CREATE DATABASE IF NOT EXISTS feria_universitaria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE feria_universitaria;
+CREATE TABLE IF NOT EXISTS registros (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ficha_nro VARCHAR(10) NOT NULL UNIQUE,
+  nombre VARCHAR(120) NOT NULL,
+  celular VARCHAR(25) NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  referente VARCHAR(120) NOT NULL,
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;

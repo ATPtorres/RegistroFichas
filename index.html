@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#193c78">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Registro Feria Universitaria</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1>Feria Universitaria</h1>
+      <p>Registro de participantes</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ===== Formulario de registro ===== -->
+    <section class="card">
+      <h2>Nuevo registro</h2>
+      <form id="formRegistro" novalidate>
+        <div class="grid">
+          <div class="campo campo-full">
+            <label for="ficha_auto">Ficha N°</label>
+            <input type="text" id="ficha_auto" value="Se asigna automáticamente" disabled>
+            <small class="campo-nota">Se incrementa sola con cada registro (0001, 0002, ...)</small>
+          </div>
+          <div class="campo">
+            <label for="nombre">Nombre * (solo letras)</label>
+            <input type="text" id="nombre" name="nombre" maxlength="120" placeholder="Nombre completo" autocomplete="name" required>
+            <span class="error" data-error-for="nombre"></span>
+          </div>
+          <div class="campo">
+            <label for="celular">Celular * (solo números)</label>
+            <input type="tel" id="celular" name="celular" maxlength="25" placeholder="Ej: 987654321" inputmode="numeric" autocomplete="tel" required>
+            <span class="error" data-error-for="celular"></span>
+          </div>
+          <div class="campo">
+            <label for="email">Email * (Gmail, Hotmail, etc.)</label>
+            <input type="email" id="email" name="email" maxlength="120" placeholder="correo@gmail.com" inputmode="email" autocomplete="email" required>
+            <span class="error" data-error-for="email"></span>
+          </div>
+          <div class="campo">
+            <label for="referente">Referente *</label>
+            <select id="referente" name="referente" required>
+              <option value="">-- Selecciona un referente --</option>
+              <option value="Alejandro Torres Peñaloza">Alejandro Torres Peñaloza</option>
+              <option value="Pecho Vallejos Gunar">Pecho Vallejos Gunar</option>
+              <option value="Wilfredo Paredes Mollo">Wilfredo Paredes Mollo</option>
+              <option value="Juan Vallejos Becerra">Juan Vallejos Becerra</option>
+              <option value="Olarte Bascope Alex">Olarte Bascope Alex</option>
+              <option value="Brayan Guevara Torrico">Brayan Guevara Torrico</option>
+              <option value="Jose Raul Chambi Ramos">Jose Raul Chambi Ramos</option>
+              <option value="Alexander Jr Mejias Joel">Alexander Jr Mejias Joel</option>
+              <option value="Kevin Yamil Rojas">Kevin Yamil Rojas</option>
+            </select>
+            <span class="error" data-error-for="referente"></span>
+          </div>
+        </div>
+        <div class="acciones-form">
+          <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar registro</button>
+          <button type="reset" class="btn btn-ghost" id="btnLimpiar">Limpiar</button>
+        </div>
+      </form>
+      <div id="msgForm" class="msg" hidden></div>
+    </section>
+
+    <!-- ===== Registros ===== -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Registros <span id="contador" class="badge">0</span></h2>
+        <div class="export-tools">
+          <input type="search" id="buscar" placeholder="Buscar..." class="input-buscar">
+          <button class="btn btn-excel" id="btnExcel">Excel</button>
+          <button class="btn btn-pdf" id="btnPdf">PDF</button>
+          <button class="btn btn-ghost" id="btnRecargar">Recargar</button>
+        </div>
+      </div>
+
+      <!-- Tarjetas (celular) -->
+      <div class="lista-tarjetas" id="listaTarjetas"></div>
+
+      <!-- Tabla (tablet/desktop) -->
+      <div class="tabla-wrap">
+        <table id="tablaRegistros">
+          <thead>
+            <tr>
+              <th>Ficha N°</th>
+              <th>Nombre</th>
+              <th>Celular</th>
+              <th>Email</th>
+              <th>Referente</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyRegistros">
+            <tr><td colspan="7" class="vacio">Cargando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <footer class="footer">
+    <p>&copy; <span id="anio"></span> Feria Universitaria - Sistema de Registro</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
